@@ -219,18 +219,23 @@ export default function RaceCalendar() {
     // Calculate window dimensions
     const windowWidth = window.innerWidth;
     
-    // Always position at bottom, but choose left or right based on available space
+    // Popup dimensions
     const popupWidth = 300; // Width of popup
     
-    // If clicked near right edge of screen, align to bottom left
-    // Otherwise align to bottom right
     let left;
-    if (rect.left + rect.width + popupWidth > windowWidth) {
-      // Not enough space on right, position at bottom left
+    // Default: Bottom left
+    left = rect.left;
+    
+    // Check if popup would go outside right edge
+    if (rect.left + popupWidth > windowWidth) {
+      // Position at bottom right
       left = rect.left - popupWidth + rect.width;
-    } else {
-      // Enough space on right, position at bottom right
-      left = rect.left;
+      
+      // Check if popup would still go outside (left side)
+      if (left < 0) {
+        // Center in the middle of the page
+        left = Math.max(0, (windowWidth - popupWidth) / 2);
+      }
     }
     
     // Always position below the dot
