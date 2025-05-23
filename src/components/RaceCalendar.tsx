@@ -201,7 +201,6 @@ export default function RaceCalendar() {
     top: null,
     left: null,
   });
-  const [visibleDays, setVisibleDays] = useState<Array<any>>([]);
   const [popupVisible, setPopupVisible] = useState(false);
 
   const handleClickOpenEventIndex = (index: number, e: React.MouseEvent) => {
@@ -293,12 +292,6 @@ export default function RaceCalendar() {
 
   const daysInSelectedMonth = getDaysInMonth(selectedYear, selectedMonth);
   
-  // Update visible days when month changes
-  useEffect(() => {
-    // Show first 9 days by default
-    setVisibleDays(daysInSelectedMonth.slice(0, 9));
-  }, [selectedMonth, selectedYear]);
-
   const onClickPreviousMonth = () => {
     let prevMonth = selectedMonth - 1;
     let prevYear = selectedYear;
